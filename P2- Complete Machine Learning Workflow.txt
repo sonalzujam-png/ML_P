@@ -1,0 +1,28 @@
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+
+data = load_iris()
+X = data.data
+y = data.target
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42)
+
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+
+pred = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, pred))
+
+# Graph
+plt.plot(y_test, label="Actual Values", marker='o')
+plt.plot(pred, label="Predicted Values", marker='x')
+
+plt.xlabel("Test Samples")
+plt.ylabel("Iris Class")
+plt.title("Actual vs Predicted Values")
+plt.legend()
+plt.show()
