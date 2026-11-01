@@ -1,34 +1,23 @@
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
-data = load_iris()
-X = data.data
-y = data.target
+X, y = load_iris(return_X_y=True)
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42)
+m1 = DecisionTreeClassifier()
+m2 = RandomForestClassifier()
 
-models = {
-    "Decision Tree": DecisionTreeClassifier(random_state=42),
-    "Random Forest": RandomForestClassifier(random_state=42)
-}
+m1.fit(X, y)
+m2.fit(X, y)
 
-names = []
-scores = []
+a1 = accuracy_score(y, m1.predict(X))
+a2 = accuracy_score(y, m2.predict(X))
 
-for name, model in models.items():
-    model.fit(X_train, y_train)
-    pred = model.predict(X_test)
-    acc = accuracy_score(y_test, pred)
-    names.append(name)
-    scores.append(acc)
-    print(name, "Accuracy:", acc)
+print("Decision Tree:", a1)
+print("Random Forest:", a2)
 
-plt.bar(names, scores)
+plt.bar(["Tree", "Forest"], [a1, a2])
 plt.ylabel("Accuracy")
-plt.title("Model Comparison")
 plt.show()
