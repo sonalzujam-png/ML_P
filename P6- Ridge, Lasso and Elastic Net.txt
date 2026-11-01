@@ -1,22 +1,21 @@
-import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import Ridge, Lasso, ElasticNet
 
-X = np.array([[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]])
-y = np.array([10, 20, 30, 40, 50])
+X = [[1], [2], [3], [4], [5]]
+y = [10, 20, 30, 40, 50]
 
-models = {
-    "Ridge": Ridge(),
-    "Lasso": Lasso(),
-    "Elastic Net": ElasticNet()
-}
+m1 = Ridge()
+m2 = Lasso()
+m3 = ElasticNet()
 
-for name, model in models.items():
-    model.fit(X, y)
-    pred = model.predict(X)
-    print(name, "Predictions:", pred)
-    plt.plot(y, marker="o", label="Actual")
-    plt.plot(pred, marker="x", label=name)
-    plt.title(name + " Regression")
-    plt.legend()
-    plt.show()
+m1.fit(X, y)
+m2.fit(X, y)
+m3.fit(X, y)
+
+plt.plot(y, label="Actual")
+plt.plot(m1.predict(X), label="Ridge")
+plt.plot(m2.predict(X), label="Lasso")
+plt.plot(m3.predict(X), label="ElasticNet")
+
+plt.legend()
+plt.show()
