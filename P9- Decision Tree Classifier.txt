@@ -1,29 +1,21 @@
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 
-data = load_iris()
-X = data.data
-y = data.target
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42)
-
+X, y = load_iris(return_X_y=True)
 depths = [1, 2, 3, 5]
 scores = []
 
 for d in depths:
-    model = DecisionTreeClassifier(max_depth=d, random_state=42)
-    model.fit(X_train, y_train)
-    pred = model.predict(X_test)
-    acc = accuracy_score(y_test, pred)
+    model = DecisionTreeClassifier(max_depth=d)
+    model.fit(X, y)
+    pred = model.predict(X)
+    acc = accuracy_score(y, pred)
     scores.append(acc)
     print("Depth =", d, "Accuracy =", acc)
 
-plt.plot(depths, scores, marker="o")
-plt.xlabel("Tree Depth")
+plt.plot(depths, scores, marker='o')
+plt.xlabel("Depth")
 plt.ylabel("Accuracy")
-plt.title("Decision Tree Performance")
 plt.show()
