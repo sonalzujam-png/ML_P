@@ -2,20 +2,18 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# NumPy
 a = np.array([10, 20, 30, 40, 50])
 print("Array:", a)
 print("Mean:", np.mean(a))
 
-# Pandas
-data = {"Name": ["A", "B", "C"],
-        "Marks": [70, 80, 90]}
-df = pd.DataFrame(data)
+df = pd.DataFrame({
+    "Name": ["A", "B", "C"],
+    "Marks": [70, 80, 90]
+})
 print(df)
 
-# Matplotlib
 plt.plot(df["Name"], df["Marks"], marker="o")
-plt.xlabel("Name")
-plt.ylabel("Marks")
-plt.title("Student Marks")
+plt.xlabel("Name") 
+plt.ylabel("Marks") 
+plt.title("Student Marks") 
 plt.show()
