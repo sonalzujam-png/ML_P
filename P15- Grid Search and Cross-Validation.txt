@@ -1,14 +1,11 @@
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
-from sklearn.model_selection import GridSearchCV
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import GridSearchCV
 
-data = load_iris()
-X = data.data
-y = data.target
+X, y = load_iris(return_X_y=True)
 
-model = DecisionTreeClassifier(random_state=42)
-
+model = DecisionTreeClassifier()
 params = {"max_depth": [2, 3, 4, 5]}
 
 grid = GridSearchCV(model, params, cv=5)
@@ -17,11 +14,7 @@ grid.fit(X, y)
 print("Best Parameters:", grid.best_params_)
 print("Best Accuracy:", grid.best_score_)
 
-depths = [2, 3, 4, 5]
-scores = grid.cv_results_["mean_test_score"]
-
-plt.plot(depths, scores, marker="o")
+plt.plot([2, 3, 4, 5], grid.cv_results_["mean_test_score"], marker="o")
 plt.xlabel("Tree Depth")
-plt.ylabel("Cross-Validation Accuracy")
-plt.title("Grid Search Results")
+plt.ylabel("Accuracy")
 plt.show()
